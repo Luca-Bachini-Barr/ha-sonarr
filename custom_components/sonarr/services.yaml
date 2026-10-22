@@ -1,0 +1,74 @@
+get_series:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+
+get_queue:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    max_items: {"required": false, "default": 0, "selector": {"number": {"min": 0, "max": 500, "mode": "box"}}}
+
+get_diskspace:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    space_unit: {"required": false, "default": "bytes", "selector": {"select": {"options": ["bytes", "kb", "kib", "mb", "mib", "gb", "gib", "tb", "tib", "pb", "pib"]}}}
+
+get_upcoming:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    days: {"required": false, "default": 1, "selector": {"number": {"min": 1, "max": 30, "mode": "box"}}}
+
+get_wanted:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    max_items: {"required": false, "default": 0, "selector": {"number": {"min": 0, "max": 500, "mode": "box"}}}
+
+get_cutoff_unmet:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    max_items: {"required": false, "default": 0, "selector": {"number": {"min": 0, "max": 500, "mode": "box"}}}
+
+get_episodes:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    series_id: {"required": true, "selector": {"number": {"min": 1, "mode": "box"}}}
+    season_number: {"required": false, "selector": {"number": {"min": 0, "mode": "box"}}}
+
+rss_sync:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+
+refresh_series:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    series_id: {"required": false, "selector": {"number": {"min": 1, "mode": "box"}}}
+
+search_series:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    series_id: {"required": true, "selector": {"number": {"min": 1, "mode": "box"}}}
+
+search_episodes:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    episode_ids: {"required": true, "selector": {"object": {}}}
+
+search_missing:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+
+search_cutoff_unmet:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+
+remove_queue_item:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    queue_id: {"required": true, "selector": {"number": {"min": 1, "mode": "box"}}}
+    removal_method: {"required": false, "default": "removeFromClient", "selector": {"select": {"options": ["removeFromClient", "changeCategory", "ignore"], "translation_key": "removal_method"}}}
+    blocklist_method: {"required": false, "default": "doNotBlocklist", "selector": {"select": {"options": ["doNotBlocklist", "blocklistAndSearch", "blocklistOnly"], "translation_key": "blocklist_method"}}}
+
+grab_queue_item:
+  fields:
+    entry_id: {"required": true, "selector": {"config_entry": {"integration": "sonarr"}}}
+    queue_id: {"required": true, "selector": {"number": {"min": 1, "mode": "box"}}}
+

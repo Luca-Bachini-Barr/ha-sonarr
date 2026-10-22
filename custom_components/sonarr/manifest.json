@@ -1,0 +1,12 @@
+{
+  "domain": "sonarr",
+  "name": "Sonarr",
+  "codeowners": ["@Luca-Bachini-Barr"],
+  "config_flow": true,
+  "documentation": "https://github.com/Luca-Bachini-Barr/ha-sonarr",
+  "integration_type": "service",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Luca-Bachini-Barr/ha-sonarr/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}
