@@ -218,9 +218,26 @@ def format_episode(episode: dict[str, Any], base_url: str | None = None) -> dict
         "episode_file_id": episode.get("episodeFileId"),
         "finale_type": episode.get("finaleType"),
         "last_search_time": episode.get("lastSearchTime"),
+        "episode_images": _format_images(episode.get("images"), base_url),
     }
     result.update(_series_info(episode.get("series"), base_url))
     return result
+
+
+def format_upcoming_item(episode: dict[str, Any], base_url: str | None = None) -> dict[str, Any]:
+    """Format a calendar episode compactly, with episode and series artwork."""
+    episode_images = _format_images(episode.get("images"), base_url)
+    series_images = _format_images((episode.get("series") or {}).get("images"), base_url)
+    return {
+        "series_title": series_title(episode),
+        "episode_identifier": episode_identifier(episode),
+        "title": episode.get("title"),
+        "air_date": local_air_date(episode),
+        "has_file": episode.get("hasFile", False),
+        "screenshot": episode_images.get("screenshot"),
+        "poster": series_images.get("poster"),
+        "fanart": series_images.get("fanart"),
+    }
 
 
 def format_episode_list(

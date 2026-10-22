@@ -127,7 +127,10 @@ class SonarrClient:
         self, series_id: int, season_number: int | None = None
     ) -> list[dict[str, Any]]:
         """Return the episodes of a series."""
-        params: list[tuple[str, Any]] = [("seriesId", series_id)]
+        params: list[tuple[str, Any]] = [
+            ("seriesId", series_id),
+            ("includeSubresources", "images"),
+        ]
         if season_number is not None:
             params.append(("seasonNumber", season_number))
         return await self._request("GET", "episode", params)
@@ -142,6 +145,7 @@ class SonarrClient:
                 ("sortKey", "episodes.airDateUtc"),
                 ("sortDirection", "descending"),
                 ("includeSubresources", "series"),
+                ("includeSubresources", "images"),
             ],
         )
 

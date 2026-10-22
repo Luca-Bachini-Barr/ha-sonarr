@@ -14,10 +14,12 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
+from .const import ATTR_EPISODES
 from .coordinator import SonarrConfigEntry, SonarrDataT, SonarrDataUpdateCoordinator
 from .entity import SonarrEntity
 from .helpers import (
     episode_identifier,
+    format_upcoming_item,
     local_air_date,
     queue_identifier,
     queue_progress,
@@ -120,7 +122,8 @@ SENSOR_TYPES: dict[str, SonarrSensorEntityDescription[Any]] = {
         translation_key="upcoming",
         value_fn=len,
         attributes_fn=lambda data: {
-            series_title(e): episode_identifier(e) for e in data
+            **{series_title(e): episode_identifier(e) for e in data},
+            ATTR_EPISODES: [format_upcoming_item(e) for e in data],
         },
     ),
     "wanted": SonarrSensorEntityDescription[dict[str, Any]](
@@ -154,6 +157,8 @@ async def async_setup_entry(
 
 class SonarrSensor(SonarrEntity[SonarrDataT], SensorEntity):
     """Implementation of the Sonarr sensor."""
+
+    _unrecorded_attributes = frozenset({ATTR_EPISODES})
 
     coordinator: SonarrDataUpdateCoordinator[SonarrDataT]
     entity_description: SonarrSensorEntityDescription[SonarrDataT]
